@@ -1,5 +1,8 @@
 # Introduction
 
+```
+01-15-2026
+```
 ## What question pulled me here?
 
 - What is TransformerLens? What does it do?
@@ -24,5 +27,11 @@
 
 My working mental model is that the data does exist inside transformer models to be able to
 probe them to understand better how they work.
+
+```
+01-25-2026
+```
+Adding support for pytorch and keras, and an example of Transformer encoding created by ChatGPT.
+
 
 
