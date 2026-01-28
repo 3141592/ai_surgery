@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-source ~/venvs/tf-keras/bin/activate
+source ~/venvs/tf/bin/activate
 export TF_CPP_MIN_LOG_LEVEL=2
 python "$@"
 
