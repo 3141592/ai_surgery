@@ -8,7 +8,7 @@ print("11.3.1 Preparing the IMDB movie reviews data")
 print("Prepare a validation set by setting apart 20% of the training text files in a new directory")
 import os, pathlib, shutil, random
 
-base_dir = pathlib.Path("/root/src/data/aclImdb")
+base_dir = pathlib.Path("~/src/data/aclImdb").expanduser()
 val_dir = base_dir / "val"
 train_dir = base_dir / "train"
 for category in ("neg", "pos"):

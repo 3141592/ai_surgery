@@ -9,7 +9,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 print("11.5 Beyond text classification: Sequence-to-sequence learning")
 print("11.5.1 A machine translation example")
 print("Parse the file")
-text_file = "/root/src/data/spa-eng/spa.txt"
+text_file = "~/src/data/spa-eng/spa.txt"
 with open(text_file) as f:
     lines = f.read().split("\n")[:-1]
 text_pairs = []

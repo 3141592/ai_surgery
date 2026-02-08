@@ -12,13 +12,13 @@ from tensorflow import keras
 batch_size = 16
 
 train_ds = keras.utils.text_dataset_from_directory(
-                "/root/src/data/aclImdb/train/", batch_size=batch_size)
+                "~/src/data/aclImdb/train/", batch_size=batch_size)
 
 val_ds = keras.utils.text_dataset_from_directory(
-                "/root/src/data/aclImdb/val/", batch_size=batch_size)
+                "~/src/data/aclImdb/val/", batch_size=batch_size)
 
 test_ds = keras.utils.text_dataset_from_directory(
-                "/root/src/data/aclImdb/test/", batch_size=batch_size)
+                "~/src/data/aclImdb/test/", batch_size=batch_size)
 
 text_only_train_ds = train_ds.map(lambda x, y: x)
 

@@ -13,13 +13,13 @@ from tensorflow.keras.layers import TextVectorization
 batch_size = 32
 
 train_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/train/", batch_size=batch_size)
+        "~/src/data/aclImdb/train/", batch_size=batch_size)
 
 val_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/val/", batch_size=batch_size)
+        "~/src/data/aclImdb/val/", batch_size=batch_size)
 
 test_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/test/", batch_size=batch_size)
+        "~/src/data/aclImdb/test/", batch_size=batch_size)
 
 print("11.3.2 Processing words as a set: The bag-of-words approach")
 print("Listing 11.10 Configuring TextVectorization to return TF-IDF-weighted outputs")

@@ -1,4 +1,43 @@
 # Suppress warnings
+"""
+Module purpose:
+        Train a binary sentiment classifier using Keras TextVectorization configured
+        for bigrams (ngrams=2) with multi-hot output, and a simple dense network.
+        Prepares datasets via keras.utils.text_dataset_from_directory, vectorizes
+        text to binary bigram features, and trains/evaluates the model.
+
+Usage notes and directory guidance:
+        - keras.utils.text_dataset_from_directory expects a directory containing
+          one subdirectory per class (e.g. "pos", "neg"). Each subdirectory should
+          contain plain text files for that class.
+
+        - Do not rely on a literal "~" in the path when calling
+          text_dataset_from_directory. Expand the user directory to an absolute
+          path first. Examples:
+
+                data_dir = os.path.expanduser('~/src/data/aclImdb/train')
+                train_ds = keras.utils.text_dataset_from_directory(data_dir, batch_size=32)
+
+          or, using pathlib (recommended):
+
+                data_dir = Path.home() / 'src' / 'data' / 'aclImdb' / 'train'
+                train_ds = keras.utils.text_dataset_from_directory(str(data_dir), batch_size=32)
+
+        - On Windows, Path.home() yields the correct user directory (no leading "~").
+        - Verify the resulting path exists before calling text_dataset_from_directory:
+                assert data_dir.exists(), f"Data directory not found: {data_dir}"
+        - If you keep both train/val/test under a common root like ~/src/data/aclImdb/,
+          point text_dataset_from_directory at the appropriate subfolders or split
+          datasets manually as needed.
+
+Configuration hints:
+        - Use batch_size consistent across datasets.
+        - If data fits in memory, call .cache() on the tf.data.Dataset after mapping
+          vectorization to speed up training.
+        - When saving/loading models, use a descriptive checkpoint filename
+          (e.g. "binary_2gram.keras").
+
+"""
 import os, pathlib
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -13,13 +52,16 @@ from tensorflow.keras.layers import TextVectorization
 batch_size = 32
 
 train_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/train/", batch_size=batch_size)
+        os.path.expanduser("~/src/data/aclImdb/train/"), 
+        batch_size=batch_size)
 
 val_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/val/", batch_size=batch_size)
+        os.path.expanduser("~/src/data/aclImdb/val/"), 
+        batch_size=batch_size)
 
 test_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/test/", batch_size=batch_size)
+        os.path.expanduser("~/src/data/aclImdb/test/"), 
+        batch_size=batch_size)
 
 for inputs, targets in train_ds:
     print("inputs.shape: ", inputs.shape)
@@ -67,6 +109,8 @@ for inputs, targets in binary_2gram_train_ds:
 print("Listing 11.5 Our model-building utility")
 from tensorflow import keras
 from tensorflow.keras import layers
+import os
+from pathlib import Path
 
 def get_model(max_tokens=20000, hidden_dim =16):
     inputs = keras.Input(shape=(max_tokens,))

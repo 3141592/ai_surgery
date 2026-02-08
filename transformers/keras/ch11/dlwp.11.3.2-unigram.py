@@ -9,13 +9,13 @@ from tensorflow.keras.layers import TextVectorization
 batch_size = 32
 
 train_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/train/", batch_size=batch_size)
+        "~/src/data/aclImdb/train/", batch_size=batch_size)
 
 val_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/val/", batch_size=batch_size)
+        "~/src/data/aclImdb/val/", batch_size=batch_size)
 
 test_ds = keras.utils.text_dataset_from_directory(
-        "/root/src/data/aclImdb/test/", batch_size=batch_size)
+        "~/src/data/aclImdb/test/", batch_size=batch_size)
 
 for inputs, targets in train_ds:
     print("inputs.shape: ", inputs.shape)
