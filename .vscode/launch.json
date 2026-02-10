@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: TF venv (current file)",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "python": "${env:HOME}/venvs/tf/bin/python"
+    },
+    {
+      "name": "Python: Torch venv (current file)",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "python": "${env:HOME}/venvs/tf/bin/python"
+    }
+  ]
+}
+

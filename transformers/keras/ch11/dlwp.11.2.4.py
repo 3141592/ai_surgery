@@ -1,8 +1,11 @@
 # Suppress warnings
 import os, pathlib
+import string
+from pathlib import Path
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-import string
+DATA_ROOT = Path.home() / "src" / "data"
 
 class Vectorizer:
     def standardize(self, text):

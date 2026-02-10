@@ -1,6 +1,10 @@
 # Suppress warnings
 import os, pathlib
+from pathlib import Path
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+DATA_ROOT = Path.home() / "src" / "data"
 
 # 11.3.1 Preparing the IMDB movie reviews data
 print("11.3.1 Preparing the IMDB movie reviews data")
@@ -8,7 +12,7 @@ print("11.3.1 Preparing the IMDB movie reviews data")
 print("Prepare a validation set by setting apart 20% of the training text files in a new directory")
 import os, pathlib, shutil, random
 
-base_dir = pathlib.Path("~/src/data/aclImdb").expanduser()
+base_dir = DATA_ROOT  / "aclImdb"
 val_dir = base_dir / "val"
 train_dir = base_dir / "train"
 for category in ("neg", "pos"):

@@ -1,9 +1,13 @@
+import numpy as np
+from pathlib import Path
+
+DATA_ROOT = Path.home() / "src" / "data"
+
+dataset = ["Such a set is called a bag"]
+
 # 11.2.3 Vocabulary indexing
 print("11.2.3 Vocabulary indexing")
 
-import numpy as np
-
-dataset = ["Such a set is called a bag"]
 vocabulary = {}
 for text in dataset:
     standardized = text.lower()

@@ -1,5 +1,7 @@
 # Suppress warnings
 import os, pathlib
+from pathlib import Path
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
