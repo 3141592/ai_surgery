@@ -39,14 +39,14 @@ Configuration hints:
 
 """
 import os, pathlib
-from pathlib import Path
+from ai_surgery.data_paths import get_data_root
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Force CPU use for keras.
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-DATA_ROOT = Path.home() / "src" / "data"
+DATA_ROOT = get_data_root()
 
 print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
 import tensorflow as tf
@@ -113,7 +113,7 @@ print("Listing 11.5 Our model-building utility")
 from tensorflow import keras
 from tensorflow.keras import layers
 import os
-from pathlib import Path
+from ai_surgery.data_paths import get_data_root
 
 def get_model(max_tokens=20000, hidden_dim =16):
     inputs = keras.Input(shape=(max_tokens,))

@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+# Ensure repo root (this script's directory) is on Python import path
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+export PYTHONPATH="${REPO_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+
 source ~/venvs/pytorch/bin/activate
 python "$@"
 

@@ -1,11 +1,11 @@
 # Suppress warnings
 import os, pathlib
 import string
-from pathlib import Path
+from ai_surgery.data_paths import get_data_root
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-DATA_ROOT = Path.home() / "src" / "data"
+DATA_ROOT = get_data_root()
 
 class Vectorizer:
     def standardize(self, text):

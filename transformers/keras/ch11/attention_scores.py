@@ -1,6 +1,6 @@
 # Suppress warnings
 import os, pathlib
-from pathlib import Path
+from ai_surgery.data_paths import get_data_root
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -8,7 +8,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-DATA_ROOT = Path.home() / "src" / "data"
+DATA_ROOT = get_data_root()
 
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf

@@ -2,18 +2,26 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: TF venv (current file)",
+      "name": "TF: Debug current file",
+      "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
-      "python": "${env:HOME}/venvs/tf/bin/python"
+      "python": "${userHome}/venvs/tf/bin/python",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/.."
+      }
     },
     {
-      "name": "Python: Torch venv (current file)",
+      "name": "Torch: Debug current file",
+      "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
-      "python": "${env:HOME}/venvs/tf/bin/python"
+      "python": "${userHome}/venvs/torch/bin/python",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/.."
+      }
     }
   ]
 }

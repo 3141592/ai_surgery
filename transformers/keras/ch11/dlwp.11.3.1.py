@@ -1,10 +1,10 @@
 # Suppress warnings
 import os, pathlib
-from pathlib import Path
+from ai_surgery.data_paths import get_data_root
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-DATA_ROOT = Path.home() / "src" / "data"
+DATA_ROOT = get_data_root()
 
 # 11.3.1 Preparing the IMDB movie reviews data
 print("11.3.1 Preparing the IMDB movie reviews data")

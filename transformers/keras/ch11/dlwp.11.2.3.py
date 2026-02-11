@@ -1,7 +1,7 @@
 import numpy as np
-from pathlib import Path
+from ai_surgery.data_paths import get_data_root
 
-DATA_ROOT = Path.home() / "src" / "data"
+DATA_ROOT = get_data_root()
 
 dataset = ["Such a set is called a bag"]
 
