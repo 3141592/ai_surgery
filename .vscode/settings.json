@@ -3,6 +3,15 @@
   "python.terminal.activateEnvironment": true,
   "python.analysis.extraPaths": [
     "${workspaceFolder}"
-  ]
+  ],
+  "vim.handleKeys": {
+    "<Tab>": false,
+    "<C-f>": false,
+    "<C-p>": false
+  },
+  "vim.useSystemClipboard": true,
+  "vim.visualBlockMode": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 4
 }
 
