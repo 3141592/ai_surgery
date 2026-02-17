@@ -10,6 +10,12 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 DATA_ROOT = get_data_root() / "aclImdb"
 
+MODEL_PATH = (
+    get_data_root()
+    / "models"
+    / "one_hot_bidir_gru.keras"
+)
+
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf
 from tensorflow import keras
@@ -65,13 +71,14 @@ model.compile(optimizer="rmsprop",
 model.summary()
 
 callbacks = [
-        keras.callbacks.ModelCheckpoint("one_hot_bidir_gru.keras",
+        keras.callbacks.ModelCheckpoint(MODEL_PATH,
             save_best_only=True)
 ]
 model.fit(int_train_ds,
         validation_data=int_val_ds,
         epochs=10,
         callbacks=callbacks)
-model = keras.models.load_model("one_hot_bidir_gru.keras")
+model = keras.models.load_model(MODEL_PATH)
+print("Evaluating best checkpoint on test set")
 print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 

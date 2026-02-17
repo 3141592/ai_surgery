@@ -48,6 +48,12 @@ os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 DATA_ROOT = get_data_root()
 
+MODEL_PATH = (
+    get_data_root()
+    / "models"
+    / "binary_2gram.keras"
+)
+
 print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
 import tensorflow as tf
 from tensorflow import keras
@@ -130,7 +136,7 @@ print("Listing 11.6 Training and testing the binary unigram model")
 model = get_model()
 model.summary()
 callbacks = [
-        keras.callbacks.ModelCheckpoint("binary_2gram.keras",
+        keras.callbacks.ModelCheckpoint(MODEL_PATH,
                                         save_best_only=True)
 ]
 # We call cache() on the datasets to cache them in memory: this way we will only do the preprocessing once,
@@ -140,6 +146,6 @@ model.fit(binary_2gram_train_ds.cache(),
         validation_data=binary_2gram_val_ds.cache(),
         epochs=10,
         callbacks=callbacks)
-model = keras.models.load_model("binary_2gram.keras")
+model = keras.models.load_model(MODEL_PATH)
 print(f"Test acc: {model.evaluate(binary_2gram_test_ds)[1]:.3f}")
 

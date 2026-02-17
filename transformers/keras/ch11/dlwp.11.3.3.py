@@ -10,6 +10,13 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 DATA_ROOT = get_data_root() / "aclImdb"
 
+# one_hot_bidir_lstm.keras is the model trained in dlwp.11.3.3.py
+MODEL_PATH = (
+    get_data_root()
+    / "models"
+    / "one_hot_bidir_lstm.keras"
+)
+
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf
 from tensorflow import keras
@@ -56,8 +63,13 @@ print("11.13 A sequence model built on one-hot encoded vector seqeunces")
 # One input is a sequence of integers.
 inputs = keras.Input(shape=(None,), dtype="int64")
 # Encode the integers into 20000-dimensional vectors
-embedded = tf.one_hot(inputs, depth=max_tokens)
-# Add a bodirectional LSTM
+# embedded = tf.one_hot(inputs, depth=max_tokens)
+# Wrap one_hot so it becomes a Keras layer in the Functional graph
+embedded = keras.layers.CategoryEncoding(
+    num_tokens=max_tokens, output_mode="one_hot"
+)(inputs)
+
+# Add a bidirectional LSTM
 x = layers.Bidirectional(layers.LSTM(32))(embedded)
 x = layers.Dropout(0.5)(x)
 # Finally, add a classification layer
@@ -70,13 +82,13 @@ model.summary()
 
 print("Listing 11.14 Training a first basic sequence model")
 callbacks = [
-        keras.callbacks.ModelCheckpoint("one_hot_bidir_lstm.keras",
+        keras.callbacks.ModelCheckpoint(MODEL_PATH,
             save_best_only=True)
 ]
 model.fit(int_train_ds,
         validation_data=int_val_ds,
         epochs=10,
         callbacks=callbacks)
-model = keras.models.load_model("one_hot_bidir_lstm.keras")
+model = keras.models.load_model(MODEL_PATH)
 print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 

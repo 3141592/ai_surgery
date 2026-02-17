@@ -6,6 +6,12 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 DATA_ROOT = get_data_root() / "aclImdb"
 
+MODEL_PATH = (
+    get_data_root()
+    / "models"
+    / "binary_1gram.keras"
+)
+
 print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
 import tensorflow as tf
 from tensorflow import keras
@@ -95,6 +101,6 @@ model.fit(binary_1gram_train_ds.cache(),
         validation_data=binary_1gram_val_ds.cache(),
         epochs=10,
         callbacks=callbacks)
-model = keras.models.load_model("binary_1gram.keras")
+model = keras.models.load_model(MODEL_PATH)
 print(f"Test acc: {model.evaluate(binary_1gram_test_ds)[1]:.3f}")
 
