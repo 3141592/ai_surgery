@@ -16,3 +16,10 @@ rm ~/tmp/glove.6B.zip
 wget http://storage.googleapis.com/download.tensorflow.org/data/spa-eng.zip -P ~/tmp
 unzip -o ~/tmp/spa-eng.zip -d ~/src/data
 rm ~/tmp/spa-eng.zip
+
+# 11.3.3 Using pretrained word embeddings, swap fastText for GloVe embeddings
+FILE_ZIP="wiki-news-300d-1M.vec.zip"
+URL="https://dl.fbaipublicfiles.com/fasttext/vectors-english/${FILE_ZIP}"
+wget "$URL" -P ~/tmp
+unzip -o ~/tmp/"$FILE_ZIP" -d ~/src/data/fasttext
+rm ~/tmp/"$FILE_ZIP"
