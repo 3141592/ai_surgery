@@ -12,6 +12,13 @@
   "vim.useSystemClipboard": true,
   "vim.visualBlockMode": true,
   "editor.insertSpaces": true,
-  "editor.tabSize": 4
+  "editor.tabSize": 4,
+  "python-envs.pythonProjects": [
+    {
+      "path": "",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ]
 }
 
