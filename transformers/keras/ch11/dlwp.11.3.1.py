@@ -1,5 +1,6 @@
 # Suppress warnings
 import os, pathlib
+import shutil
 from ai_surgery.data_paths import get_data_root
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -15,6 +16,10 @@ import os, pathlib, shutil, random
 base_dir = DATA_ROOT  / "aclImdb"
 val_dir = base_dir / "val"
 train_dir = base_dir / "train"
+
+if val_dir.exists():
+    shutil.rmtree(val_dir)
+
 for category in ("neg", "pos"):
     os.makedirs(val_dir / category, exist_ok = True)
     files = os.listdir(train_dir / category)
@@ -26,7 +31,7 @@ for category in ("neg", "pos"):
     val_files = files[-num_val_samples:]
     # Move the files to aclImdb/val/neg and aclImdb/val/pos
     for fname in val_files:
-        shutil.move(train_dir / category / fname,
+        shutil.copy(train_dir / category / fname,
                     val_dir / category / fname)
 
 

@@ -25,6 +25,12 @@ train_ds = keras.utils.text_dataset_from_directory(
                 DATA_ROOT / "train/",
                 batch_size=batch_size)
 
+print(train_ds.class_names)  # should show ['neg', 'pos']
+
+for texts, labels in train_ds.take(1):
+    print(labels[:10].numpy())
+    print(texts[0].numpy()[:200])
+
 val_ds = keras.utils.text_dataset_from_directory(
                 DATA_ROOT / "val/",
                 batch_size=batch_size)
