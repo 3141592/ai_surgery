@@ -45,3 +45,20 @@ probe them to understand better how they work.
 ### What do I think I understand a little better now (or still don’t)?
 
 - That newer pretrained embeddings work faster and better.
+
+
+## 02-23-2026
+
+### What question pulled me here?
+
+- I contuned a review of how the Transformer encoder example from DLwP.
+
+### What did I actually do?
+
+- Updated dataset splitting to prevent leakage.
+
+### What do I think I understand a little better now (or still don’t)?
+
+- I still do not completely understand the Transformer encoder architecture.
+
+
