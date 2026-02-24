@@ -2,16 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug current file",
+      "name": "Torch: Debug current file",
       "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "cwd": "${fileDirname}",
-      "console": "integratedTerminal",
-      "python": "${workspaceFolder}/scripts/python-auto",
+      "python": "${userHome}/venvs/torch/bin/python",
       "env": {
         "PYTHONPATH": "${workspaceFolder}/.."
       }
     }
   ]
 }
+

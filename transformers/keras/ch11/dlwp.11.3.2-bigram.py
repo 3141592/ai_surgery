@@ -46,7 +46,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-DATA_ROOT = get_data_root()
+DATA_ROOT = get_data_root() / "aclImdb"
 
 MODEL_PATH = (
     get_data_root()
@@ -58,19 +58,32 @@ print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import TextVectorization
+
 batch_size = 32
+seed = 1337
+val_split = 0.2  # 20% of train -> val
 
 train_ds = keras.utils.text_dataset_from_directory(
-        DATA_ROOT / "aclImdb" / "train/",
-        batch_size=batch_size)
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="training",
+    seed=seed,
+)
 
 val_ds = keras.utils.text_dataset_from_directory(
-        DATA_ROOT / "aclImdb" / "val", 
-        batch_size=batch_size)
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="validation",
+    seed=seed,
+)
 
 test_ds = keras.utils.text_dataset_from_directory(
-        DATA_ROOT / "aclImdb" / "test", 
-        batch_size=batch_size)
+    DATA_ROOT / "test",
+    batch_size=batch_size,
+    shuffle=False,
+)
 
 for inputs, targets in train_ds:
     print("inputs.shape: ", inputs.shape)

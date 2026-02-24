@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TARGET_DIR="${PWD}"
+if [[ "$TARGET_DIR" == *"/torch/"* || "$TARGET_DIR" == */torch ]]; then
+  exec "${HOME}/venvs/torch/bin/python" "$@"
+fi
+
+exec "${HOME}/venvs/tf/bin/python" "$@"

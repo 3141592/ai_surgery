@@ -20,19 +20,32 @@ print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import TextVectorization
+
 batch_size = 32
+seed = 1337
+val_split = 0.2  # 20% of train -> val
 
 train_ds = keras.utils.text_dataset_from_directory(
-        DATA_ROOT / "train/",
-        batch_size=batch_size)
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="training",
+    seed=seed,
+)
 
 val_ds = keras.utils.text_dataset_from_directory(
-        DATA_ROOT / "val/",
-        batch_size=batch_size)
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="validation",
+    seed=seed,
+)
 
 test_ds = keras.utils.text_dataset_from_directory(
-        DATA_ROOT / "test/",
-        batch_size=batch_size)
+    DATA_ROOT / "test",
+    batch_size=batch_size,
+    shuffle=False,
+)
 
 print("11.3.2 Processing words as a set: The bag-of-words approach")
 print("Listing 11.10 Configuring TextVectorization to return TF-IDF-weighted outputs")

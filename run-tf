@@ -5,8 +5,12 @@ set -e
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 export PYTHONPATH="${REPO_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
 
+TARGET="${1:-}"
+if [[ "$TARGET" == *"/torch/"* || "$TARGET" == torch/* ]]; then
+  exec "$REPO_ROOT/run-torch" "$@"
+fi
+
 source ~/venvs/tf/bin/activate
 export TF_CPP_MIN_LOG_LEVEL=2
 python "$@"
-
 

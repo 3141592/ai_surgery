@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "ai_surgery",
+      "path": "."
+    },
+    {
+      "name": "ablation/torch",
+      "path": "ablation/torch"
+    },
+    {
+      "name": "introduction/torch",
+      "path": "introduction/torch"
+    },
+    {
+      "name": "transformers/torch",
+      "path": "transformers/torch"
+    }
+  ]
+}

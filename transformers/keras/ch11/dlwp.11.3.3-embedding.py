@@ -19,25 +19,38 @@ MODEL_PATH = (
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf
 from tensorflow import keras
+
 batch_size = 16
+seed = 1337
+val_split = 0.2  # 20% of train -> val
 
 train_ds = keras.utils.text_dataset_from_directory(
-                DATA_ROOT / "train/",
-                batch_size=batch_size)
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="training",
+    seed=seed,
+)
+
+val_ds = keras.utils.text_dataset_from_directory(
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="validation",
+    seed=seed,
+)
+
+test_ds = keras.utils.text_dataset_from_directory(
+    DATA_ROOT / "test",
+    batch_size=batch_size,
+    shuffle=False,
+)
 
 print(train_ds.class_names)  # should show ['neg', 'pos']
 
 for texts, labels in train_ds.take(1):
     print(labels[:10].numpy())
     print(texts[0].numpy()[:200])
-
-val_ds = keras.utils.text_dataset_from_directory(
-                DATA_ROOT / "val/",
-                batch_size=batch_size)
-
-test_ds = keras.utils.text_dataset_from_directory(
-                DATA_ROOT / "test/", 
-                batch_size=batch_size)
 
 text_only_train_ds = train_ds.map(lambda x, y: x)
 
