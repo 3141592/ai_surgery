@@ -2,6 +2,13 @@
 import os, pathlib
 from ai_surgery.data_paths import get_data_root
 
+os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.callbacks import EarlyStopping
+import keras.ops as ops
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Force CPU use for keras.
@@ -9,23 +16,41 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 DATA_ROOT = get_data_root() / "aclImdb"
+MODEL_PATH = (
+    get_data_root()
+    / "models"
+    / "full_transformer_encoder.keras"
+)
 
 print("11.4.3 The Transformer encoder")
 import tensorflow as tf
 from tensorflow import keras
+
 batch_size = 16
+seed = 1337
+val_split = 0.2  # 20% of train -> val
 
 train_ds = keras.utils.text_dataset_from_directory(
-                DATA_ROOT / "train/",
-                batch_size=batch_size)
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="training",
+    seed=seed,
+)
 
 val_ds = keras.utils.text_dataset_from_directory(
-                DATA_ROOT / "train/",
-                batch_size=batch_size)
+    DATA_ROOT / "train",
+    batch_size=batch_size,
+    validation_split=val_split,
+    subset="validation",
+    seed=seed,
+)
 
 test_ds = keras.utils.text_dataset_from_directory(
-                DATA_ROOT / "test/",
-                batch_size=batch_size)
+    DATA_ROOT / "test",
+    batch_size=batch_size,
+    shuffle=False,
+)
 
 text_only_train_ds = train_ds.map(lambda x, y: x)
 
@@ -100,6 +125,12 @@ class TransformerEncoder(layers.Layer):
         })
         return config
 
+    def build(self, input_shape):
+        # Let Keras know this layer is built.
+        # Sublayers (attention, denseproj, layernorm) build themselves
+        # automatically the first time they are called.
+        super().build(input_shape)
+
 print("Listing 11.24 Implementing positional embedding as a subclassed layer")
 
 class PositionalEmbedding(layers.Layer):
@@ -131,7 +162,7 @@ class PositionalEmbedding(layers.Layer):
     # called automatically by the framework, and the mask will get propogated 
     # to the next layer.
     def compute_mask(self, inputs, mask=None):
-        return tf.math.not_equal(inputs, 0)
+        return ops.not_equal(inputs, 0)
 
     # Implement serialization so we can save the model.
     def get_config(self):
@@ -142,6 +173,12 @@ class PositionalEmbedding(layers.Layer):
             "input_dim": self.input_dim,
         })
         return config
+
+    def build(self, input_shape):
+        # Let Keras know this layer is built.
+        # Sublayers (attention, denseproj, layernorm) build themselves
+        # automatically the first time they are called.
+        super().build(input_shape)
 
 print("Listing 11.25 Combining the Transformer encoder with positional embedding")
 vocab_size = 20000
@@ -163,15 +200,19 @@ model.compile(optimizer="rmsprop",
 model.summary()
 
 callbacks = [
-        keras.callbacks.ModelCheckpoint("full_transformer_encoder.keras",
-        save_best_only=True)
+        keras.callbacks.ModelCheckpoint(
+        MODEL_PATH,
+        save_best_only=True)#,
+#        EarlyStopping(monitor="val_loss",
+#                patience=3,
+#                restore_best_weights=True)
 ]
 model.fit(int_train_ds,
         validation_data=int_val_ds,
         epochs=20,
         callbacks=callbacks)
 model = keras.models.load_model(
-        "full_transformer_encoder.keras",
+        MODEL_PATH,
         custom_objects={"TransformerEncoder": TransformerEncoder,
                         "PositionalEmbedding": PositionalEmbedding})
 print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
