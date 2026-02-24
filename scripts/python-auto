@@ -1,9 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-TARGET_DIR="${PWD}"
-if [[ "$TARGET_DIR" == *"/torch/"* || "$TARGET_DIR" == */torch ]]; then
-  exec "${HOME}/venvs/torch/bin/python" "$@"
+# Find the first arg that looks like a .py file (covers: python file.py, python -m, etc.)
+script=""
+for a in "$@"; do
+  if [[ "$a" == *.py ]]; then
+    script="$a"
+    break
+  fi
+done
+
+# Prefer script path if present; otherwise fall back to PWD.
+basis="${script:-$PWD}"
+
+# Make basis absolute if it’s a relative path.
+if [[ -n "${script}" && "${basis}" != /* ]]; then
+  basis="$(pwd)/${basis}"
 fi
 
-exec "${HOME}/venvs/tf/bin/python" "$@"
+if [[ "$basis" == *"/torch/"* || "$basis" == */torch || "$basis" == *"/torch/"*.py ]]; then
+  exec "${HOME}/venvs/torch/bin/python" "$@"
+else
+  exec "${HOME}/venvs/tf/bin/python" "$@"
+fi
