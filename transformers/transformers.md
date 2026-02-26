@@ -62,3 +62,21 @@ probe them to understand better how they work.
 - I still do not completely understand the Transformer encoder architecture.
 
 
+## 02-26-2026
+
+### What question pulled me here?
+
+- I contuned a review of how the Transformer encoder example from DLwP.
+
+### What did I actually do?
+
+- Start to understand the TransformerEncoder model from DLWP, with print statements mostly recommended by ChatGPT.
+
+### What do I think I understand a little better now (or still don’t)?
+
+- I feel like I do not understand much, in spite of a significant investment of time.
+- I will be taking a new approach, guided by ChatGPT, but with me doing all of the implementation.
+
+
+
+

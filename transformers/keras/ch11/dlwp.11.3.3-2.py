@@ -9,6 +9,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 DATA_ROOT = get_data_root() / "aclImdb"
+MODEL_PATH = (
+    get_data_root()
+    / "models"
+    / "glove_embeddings_sequence_model.keras"
+)
 
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf
@@ -118,12 +123,12 @@ model.compile(optimizer="rmsprop",
 model.summary()
 
 callbacks = [
-        keras.callbacks.ModelCheckpoint("glove_embeddings_sequence_model.keras",
+        keras.callbacks.ModelCheckpoint(MODEL_PATH,
             save_best_only=True)
 ]
 model.fit(int_train_ds,
         validation_data=int_val_ds,
         epochs=10,
         callbacks=callbacks)
-model=keras.models.load_model("glove_embeddings_sequence_model.keras")
+model=keras.models.load_model(MODEL_PATH)
 print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
