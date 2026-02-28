@@ -18,7 +18,7 @@ DATA_ROOT = get_data_root() / "aclImdb"
 MODEL_PATH = (
     get_data_root()
     / "models"
-    / "transformer_encoder.keras"
+    / "transformer_encoder_exploration.keras"
 )
 
 print("11.3.4 Using pretrained word embeddings")
