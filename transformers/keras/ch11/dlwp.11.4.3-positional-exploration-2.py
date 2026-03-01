@@ -1,5 +1,6 @@
 # Suppress warnings
 import os, pathlib
+import numpy as np
 from ai_surgery.data_paths import get_data_root
 
 os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
@@ -19,14 +20,14 @@ DATA_ROOT = get_data_root() / "aclImdb"
 MODEL_PATH = (
     get_data_root()
     / "models"
-    / "full_transformer_encoder_exploration.keras"
+    / "full_transformer_encoder.keras"
 )
 
 print("11.4.3 The Transformer encoder")
 import tensorflow as tf
 from tensorflow import keras
 
-batch_size = 32
+batch_size = 16
 seed = 1337
 val_split = 0.2  # 20% of train -> val
 
@@ -67,6 +68,30 @@ text_vectorization = layers.TextVectorization(
 )
 text_vectorization.adapt(text_only_train_ds)
 
+def peek_labels(ds, n=8):
+    shown = 0
+    for batch_x, batch_y in ds:
+        bx = batch_x.numpy()
+        by = batch_y.numpy()
+
+        for i in range(len(by)):
+            if shown >= n:
+                return
+
+            x_i = bx[i]
+            y_i = by[i]
+
+            if isinstance(x_i, (bytes, bytearray)):
+                x_i = x_i.decode("utf-8", errors="replace")
+
+            print("----")
+            print("label:", int(y_i))
+            print(x_i[:400])
+
+            shown += 1    
+
+peek_labels(test_ds, n=8)
+
 int_train_ds = train_ds.map(
                 lambda x, y: (text_vectorization(x), y),
                 num_parallel_calls=tf.data.AUTOTUNE)
@@ -77,6 +102,8 @@ int_test_ds = test_ds.map(
                 lambda x, y: (text_vectorization(x), y),
                 num_parallel_calls=tf.data.AUTOTUNE)
 
+peek_labels(int_test_ds, n=8)
+exit
 print("Listing 11.21 Transformer encoder implemented as a subclassed Layer")
 import tensorflow as tf
 from tensorflow import keras
@@ -154,15 +181,8 @@ class PositionalEmbedding(layers.Layer):
         length = tf.shape(inputs)[-1]
         positions = tf.range(start=0, limit=length, delta=1)
         embedded_tokens = self.token_embeddings(inputs)
-        if tf.executing_eagerly():
-            tf.print("embedded_tokens shape:", tf.shape(embedded_tokens ))
         embedded_positions = self.position_embeddings(positions)
-        if tf.executing_eagerly():
-            tf.print("embedded_positions shape:", tf.shape(embedded_positions))
-        updated_tokens = embedded_tokens + embedded_positions
-        if tf.executing_eagerly():
-            tf.print("updated_tokens shape:", tf.shape(updated_tokens))
-        return updated_tokens
+        return embedded_tokens + embedded_positions
 
     # Like the Embedding layer, this layer should be able to generate a mask so 
     # we can ignore padding zeros in the inputs. The compute_mask method will be 
@@ -197,7 +217,8 @@ dense_dim = 32
 inputs = keras.Input(shape=(None,), dtype="int64")
 x = PositionalEmbedding(sequence_length, vocab_size, embed_dim)(inputs)
 x = TransformerEncoder(embed_dim, dense_dim, num_heads)(x)
-x = layers.GlobalMaxPooling1D()(x)
+#x = layers.GlobalMaxPooling1D()(x)
+x = layers.GlobalAveragePooling1D()(x)
 x = layers.Dropout(0.5)(x)
 outputs = layers.Dense(1, activation="sigmoid")(x)
 model = keras.Model(inputs, outputs)
@@ -209,18 +230,69 @@ model.summary()
 callbacks = [
         keras.callbacks.ModelCheckpoint(
         MODEL_PATH,
-        save_best_only=True)#,
-#        EarlyStopping(monitor="val_loss",
-#                patience=3,
-#                restore_best_weights=True)
+        save_best_only=True),
+        EarlyStopping(monitor="val_loss",
+                patience=3,
+                restore_best_weights=True)
 ]
-#model.fit(int_train_ds,
-#        validation_data=int_val_ds,
-#        epochs=20,
-#        callbacks=callbacks)
+model.fit(int_train_ds,
+        validation_data=int_val_ds,
+        epochs=20,
+        callbacks=callbacks)
 
-batch = next(iter(int_train_ds))
-model(batch[0])
+def show_mistakes_pair(debug_model, raw_ds, int_ds, n=20, threshold=0.5):
+    """
+    raw_ds yields (text, y)
+    int_ds yields (token_ids, y)
+    debug_model accepts raw text (string) and outputs probs
+    """
+    shown = 0
+
+    raw_iter = iter(raw_ds)
+    int_iter = iter(int_ds)
+
+    while shown < n:
+        raw_x, raw_y = next(raw_iter)
+        int_x, int_y = next(int_iter)
+
+        # sanity: labels should match
+        y_true = tf.reshape(raw_y, [-1]).numpy()
+        y_true2 = tf.reshape(int_y, [-1]).numpy()
+        if not np.array_equal(y_true, y_true2):
+            raise ValueError("raw_ds and int_ds are not aligned (labels differ).")
+
+        p = tf.reshape(debug_model(raw_x, training=False), [-1]).numpy()
+        y_pred = (p >= threshold).astype(np.int32)
+
+        wrong = np.where(y_pred != y_true)[0]
+        if wrong.size == 0:
+            continue
+
+        rx = raw_x.numpy()
+        ix = int_x.numpy()
+
+        for i in wrong:
+            if shown >= n:
+                return
+
+            txt = rx[i]
+            if isinstance(txt, (bytes, np.bytes_)):
+                txt = txt.decode("utf-8", errors="replace")
+
+            print("----")
+            print(f"true={int(y_true[i])} pred={int(y_pred[i])} p={float(p[i]):.4f}")
+            print(txt[:800])
+            print("TOKENS(head 80):", ix[i][:80])
+
+            shown += 1
+
+# Wrap: string -> TextVectorization -> trained model
+string_inputs = keras.Input(shape=(), dtype=tf.string, name="raw_text")
+token_ids = text_vectorization(string_inputs)
+outputs = model(token_ids)
+debug_model = keras.Model(string_inputs, outputs, name="debug_model")
+
+show_mistakes_pair(debug_model, test_ds, int_test_ds, n=25, threshold=0.5)
 
 model = keras.models.load_model(
         MODEL_PATH,
