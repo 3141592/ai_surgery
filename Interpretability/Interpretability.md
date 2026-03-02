@@ -9,11 +9,8 @@
 ### 03-01-2026
 
 - Clone repo and move into ai_surgery repo.
-- Installed
-  - pip install jaxtyping einops
-  - pip install plotly
-  - pip install ipython
-  - pip install ipywidgets
-- Completed setup
-- Completed Exercise make_rays_1d.py
-  - Took me about an hour.
+- Complete but will have to see if the code runs in my torch venv.
+
+#### [0.1] - Ray Tracing
+
+
