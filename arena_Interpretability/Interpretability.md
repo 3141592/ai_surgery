@@ -6,6 +6,13 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-06-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens Introduction
+  - Use `circuitsvis` to visualise attention heads
+
+
 ### 03-05-2026
 #### [1.2] Intro to Mech Interp
 
