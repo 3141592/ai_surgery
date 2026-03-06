@@ -6,6 +6,12 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-05-2026
+#### [1.2] Intro to Mech Interp
+
+- Learned about dumping information from heads.
+- Learned that model.generate(prompt) outputs a prediction.
+
 ### 03-03-2026
 #### [1.2] Intro to Mech Interp
 
