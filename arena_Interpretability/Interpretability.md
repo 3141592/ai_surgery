@@ -11,6 +11,8 @@
 
 - TransformerLens Introduction
   - Use `circuitsvis` to visualise attention heads
+    - I had to rely on the Exploratory Analysis Demo for this, but it worked.
+  - Start back at the Running your model section.
 
 
 ### 03-05-2026

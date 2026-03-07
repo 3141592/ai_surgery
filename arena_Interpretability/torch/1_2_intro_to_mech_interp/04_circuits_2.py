@@ -160,6 +160,15 @@ tokens = model.to_tokens(prompts, prepend_bos=True)
 
 # Run the model and cache all activations
 original_logits, cache = model.run_with_cache(tokens)
+print("Now, let's intervene on the model by zeroing out the output of head 9 in the last layer.")
+def zero_head_9(z, hook):
+    z[:, :, 9, :] = 0
+    return z
+
+ablated_logits = model.run_with_hooks(
+    tokens,
+    fwd_hooks=[(utils.get_act_name("z", 9), zero_head_9)]
+)
 
 print()
 print("Getting an output logit is equivalent to projecting onto a direction in the residual stream")
