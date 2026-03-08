@@ -6,6 +6,23 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-07-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens: Introduction
+  - Loading and Running Models
+  - Exercise - inspect your model
+    - Number of layers
+    - Number of heads per layer
+    - Maximum context window
+  - Running your model
+    - return_type = "loss"
+    - return_type = "logits"
+  - Transformer architecture
+    - The weight matrices W_K, W_Q, W_V, W_O
+      - The activations all have shape [batch, position, head_index, d_head].
+      - W_K, W_Q, W_V have shape [head_index, d_model, d_head] and W_O has shape [head_index, d_head, d_model]
+
 ### 03-06-2026
 #### [1.2] Intro to Mech Interp
 
