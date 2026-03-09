@@ -1,7 +1,4 @@
 import numpy as np
-from ai_surgery.data_paths import get_data_root
-
-DATA_ROOT = get_data_root()
 
 dataset = ["Such a set is called a bag"]
 

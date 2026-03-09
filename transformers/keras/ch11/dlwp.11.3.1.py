@@ -1,11 +1,9 @@
 # Suppress warnings
 import os, pathlib
 import shutil
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import ensure_asset, get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-DATA_ROOT = get_data_root()
 
 # 11.3.1 Preparing the IMDB movie reviews data
 print("11.3.1 Preparing the IMDB movie reviews data")
@@ -13,7 +11,8 @@ print("11.3.1 Preparing the IMDB movie reviews data")
 print("Prepare a validation set by setting apart 20% of the training text files in a new directory")
 import os, pathlib, shutil, random
 
-base_dir = DATA_ROOT  / "aclImdb"
+ensure_asset("aclImdb")
+base_dir = get_asset_path("aclImdb")
 val_dir = base_dir / "val"
 train_dir = base_dir / "train"
 

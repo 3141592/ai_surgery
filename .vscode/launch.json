@@ -10,7 +10,6 @@
       "console": "integratedTerminal",
       "python": "${workspaceFolder}/scripts/python-auto",
       "env": {
-        "PYTHONPATH": "${workspaceFolder}/.."
       }
     }
   ]
