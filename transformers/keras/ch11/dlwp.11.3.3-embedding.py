@@ -1,6 +1,6 @@
 # Suppress warnings
 import os, pathlib
-from ai_shared_data import get_asset_path
+from ai_shared_data import get_asset_path, get_asset, save_registered_model
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -10,9 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 DATA_ROOT = get_asset_path("aclImdb")
 
-MODEL_PATH = (
-    get_asset_path("one_hot_bidir_gru")
-)
+MODEL_ARTIFACT = get_asset("one_hot_bidir_gru")
 
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf
@@ -88,14 +86,14 @@ model.compile(optimizer="rmsprop",
 model.summary()
 
 callbacks = [
-        keras.callbacks.ModelCheckpoint(MODEL_PATH,
-            save_best_only=True)
+    keras.callbacks.ModelCheckpoint(MODEL_ARTIFACT.path, save_best_only=True)
 ]
 model.fit(int_train_ds,
         validation_data=int_val_ds,
-        epochs=10,
+        epochs=1,
         callbacks=callbacks)
-model = keras.models.load_model(MODEL_PATH)
+model = keras.models.load_model(MODEL_ARTIFACT.path)
 print("Evaluating best checkpoint on test set")
 print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 
+save_registered_model(model, MODEL_ARTIFACT)
