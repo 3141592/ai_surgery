@@ -1,16 +1,11 @@
 # Suppress warnings
 import os, pathlib
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import ensure_asset, get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-DATA_ROOT = get_data_root() / "aclImdb"
-
-MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "binary_1gram.keras"
-)
+DATA_ROOT = get_asset_path("aclImdb")
+MODEL_PATH = get_asset_path("binary_1gram")
 
 print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
 import tensorflow as tf
@@ -104,7 +99,7 @@ print("Listing 11.6 Training and testing the binary unigram model")
 model = get_model()
 model.summary()
 callbacks = [
-        keras.callbacks.ModelCheckpoint("binary_1gram.keras",
+        keras.callbacks.ModelCheckpoint(MODEL_PATH,
                                         save_best_only=True)
 ]
 # We call cache() on the datasets to cache them in memory: this way we will only do the preprocessing once,

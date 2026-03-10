@@ -9,16 +9,14 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.callbacks import EarlyStopping
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-DATA_ROOT = get_data_root() / "aclImdb"
+DATA_ROOT = get_asset_path("aclImdb")
 
 MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "transformer_encoder_exploration.keras"
+    get_asset_path("transformer_encoder_exploration")
 )
 
 print("11.3.4 Using pretrained word embeddings")
@@ -194,12 +192,12 @@ print("After embedding:", x.shape)
 
 x = TransformerEncoder(embed_dim, dense_dim, num_heads)(x)
 x = layers.GlobalMaxPooling1D()(x)
-x = DebugShape("After GlobalMaxPooling1D:")(x)
+#x = DebugShape("After GlobalMaxPooling1D:")(x)
 
 x = layers.Dropout(0.5)(x)
-x = DebugShape("After Dropout:")(x)
+#x = DebugShape("After Dropout:")(x)
 outputs = layers.Dense(1, activation="sigmoid")(x)
-x = DebugShape("After Dense:")(x)
+#x = DebugShape("After Dense:")(x)
 model = keras.Model(inputs, outputs)
 
 #for xb, yb in int_train_ds.take(1):
@@ -221,7 +219,7 @@ callbacks = [
                   restore_best_weights=True)
 ]
 print("Training the model...")
-#model.fit(int_train_ds, validation_data=int_val_ds, epochs=20, callbacks=callbacks)
+model.fit(int_train_ds, validation_data=int_val_ds, epochs=20, callbacks=callbacks)
 batch = next(iter(int_train_ds))
 model(batch[0])
 

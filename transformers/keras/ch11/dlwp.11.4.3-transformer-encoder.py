@@ -7,17 +7,15 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.callbacks import EarlyStopping
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-DATA_ROOT = get_data_root() / "aclImdb"
+DATA_ROOT = get_asset_path("aclImdb")
 
 MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "transformer_encoder.keras"
-)
+    get_asset_path("transformer_encoder")
+)   
 
 print("11.3.4 Using pretrained word embeddings")
 import tensorflow as tf

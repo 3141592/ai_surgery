@@ -1,7 +1,7 @@
 # Suppress warnings / TF noise (even though we aren't using TF here)
 import os
 import numpy as np
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
@@ -9,7 +9,7 @@ print("Parsing the GloVe word-embeddings file (full vocabulary)")
 
 # Pick the GloVe file you want:
 # path_to_glove_file = get_data_root() / "glove.6B/glove.6B.100d.txt"
-path_to_glove_file = get_data_root() / "glove.6B/glove.6B.300d.txt"
+path_to_glove_file = get_asset_path("glove.6B.300d")
 
 embeddings_index: dict[str, np.ndarray] = {}
 

@@ -1,6 +1,6 @@
 # Suppress warnings
 import os, pathlib
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -8,14 +8,12 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-DATA_ROOT = get_data_root() / "aclImdb"
+DATA_ROOT = get_asset_path("aclImdb")
 
 # one_hot_bidir_lstm.keras is the model trained in dlwp.11.3.3.py
 MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "one_hot_bidir_lstm.keras"
-)
+    get_asset_path("one_hot_bidir_lstm")
+)   
 
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf

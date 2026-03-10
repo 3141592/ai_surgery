@@ -4,16 +4,14 @@ from pathlib import Path
 import sys
 import tensorflow as tf
 from tensorflow import keras
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-DATA_ROOT = get_data_root() / "aclImdb"
+DATA_ROOT = get_asset_path("aclImdb")
 
 MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "one_hot_bidir_gru.keras"
+    get_asset_path("one_hot_bidir_gru")
 )
 
 if not MODEL_PATH.exists():

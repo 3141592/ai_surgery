@@ -1,5 +1,23 @@
 # "Interventions, probes, and controlled damage to language models"
 
+## Shared Data Repository
+
+This project depends on the shared asset repository:
+
+https://github.com/3141592/ai_shared_data
+
+Datasets and model assets are **not stored in this repository**.  
+They are managed through `ai_shared_data`.
+
+Example setup:
+
+```bash
+git clone https://github.com/<yourname>/ai_shared_data
+pip install -e ai_shared_data
+```
+
+See that repository for dataset download and configuration instructions.
+
 ## Environments
 
 This repo intentionally uses **two Python virtual environments**:

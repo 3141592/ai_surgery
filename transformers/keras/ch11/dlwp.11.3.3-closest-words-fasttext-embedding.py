@@ -1,14 +1,14 @@
 # Suppress warnings / TF noise (even though we aren't using TF here)
 import os
 import numpy as np
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 print("Parsing the fastText word-embeddings file (full vocabulary)")
 
-path_to_vec_file = get_data_root() / "fasttext/wiki-news-300d-1M.vec"
-
+path_to_vec_file = get_asset_path("wiki-news-300d-1M")
+    
 embeddings_index: dict[str, np.ndarray] = {}
 
 with open(path_to_vec_file, "r", encoding="utf-8", newline="\n") as f:

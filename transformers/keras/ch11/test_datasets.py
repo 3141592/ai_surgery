@@ -4,9 +4,9 @@ from pathlib import Path
 import sys
 import tensorflow as tf
 from tensorflow import keras
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
-DATA_ROOT = get_data_root() / "aclImdb"
+DATA_ROOT = get_asset_path("aclImdb")
 
 def count_files(root):
     root = pathlib.Path(root)
@@ -42,8 +42,8 @@ def collect_hashes(dir_path: pathlib.Path):
         hashes[file_hash(p)] = p
     return hashes
 
-train_dir = pathlib.Path("/home/roy/src/data/aclImdb/train")
-val_dir   = pathlib.Path("/home/roy/src/data/aclImdb/val")
+train_dir = get_asset_path("aclImdb") / "train"
+val_dir   = get_asset_path("aclImdb") / "val"
 
 train_hashes = collect_hashes(train_dir)
 val_hashes   = collect_hashes(val_dir)

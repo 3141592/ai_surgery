@@ -1,6 +1,6 @@
 # Suppress warnings
 import os, pathlib
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import ensure_asset, get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -8,13 +8,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-DATA_ROOT = get_data_root() / "aclImdb"
-
-MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "tfidf_2gram.keras"
-)
+basedir = get_asset_path("aclImdb")
+MODEL_PATH = get_asset_path("tfidf_2gram")
 
 print("Listing 11.2 Displaying the shapes and dtypes of the first batch")
 import tensorflow as tf
@@ -26,7 +21,7 @@ seed = 1337
 val_split = 0.2  # 20% of train -> val
 
 train_ds = keras.utils.text_dataset_from_directory(
-    DATA_ROOT / "train",
+    basedir / "train",
     batch_size=batch_size,
     validation_split=val_split,
     subset="training",
@@ -34,7 +29,7 @@ train_ds = keras.utils.text_dataset_from_directory(
 )
 
 val_ds = keras.utils.text_dataset_from_directory(
-    DATA_ROOT / "train",
+    basedir / "train",
     batch_size=batch_size,
     validation_split=val_split,
     subset="validation",
@@ -42,7 +37,7 @@ val_ds = keras.utils.text_dataset_from_directory(
 )
 
 test_ds = keras.utils.text_dataset_from_directory(
-    DATA_ROOT / "test",
+    basedir / "test",
     batch_size=batch_size,
     shuffle=False,
 )

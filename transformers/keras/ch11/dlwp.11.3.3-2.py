@@ -1,6 +1,6 @@
 # Suppress warnings
 import os, pathlib
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import ensure_asset, get_asset_path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -8,12 +8,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-DATA_ROOT = get_data_root() / "aclImdb"
-MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "glove_embeddings_sequence_model.keras"
-)
+DATA_ROOT = get_asset_path("aclImdb")
+MODEL_PATH = get_asset_path("glove_embeddings_sequence_model")
 
 print("11.3.3 Processing words as a sequence: The sequence model approach")
 import tensorflow as tf
@@ -72,7 +68,7 @@ int_test_ds = test_ds.map(
 
 print("Listing 11.18 Parsing the GloVe word-embeddings file")
 import numpy as np
-path_to_glove_file = get_data_root() / "glove.6B/glove.6B.100d.txt"
+path_to_glove_file = get_asset_path("glove.6B.100d")
 
 embeddings_index = {}
 with open(path_to_glove_file) as f:

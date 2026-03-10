@@ -1,6 +1,6 @@
 # Suppress warnings
 import os, pathlib
-from ai_surgery.data_paths import get_data_root
+from ai_shared_data import get_asset_path
 
 os.environ["TF_XLA_FLAGS"] = "--tf_xla_auto_jit=0"
 import tensorflow as tf
@@ -15,11 +15,9 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-DATA_ROOT = get_data_root() / "aclImdb"
+DATA_ROOT = get_asset_path("aclImdb")
 MODEL_PATH = (
-    get_data_root()
-    / "models"
-    / "full_transformer_encoder_exploration.keras"
+    get_asset_path("full_transformer_encoder_exploration")
 )
 
 print("11.4.3 The Transformer encoder")
@@ -209,15 +207,15 @@ model.summary()
 callbacks = [
         keras.callbacks.ModelCheckpoint(
         MODEL_PATH,
-        save_best_only=True)#,
-#        EarlyStopping(monitor="val_loss",
-#                patience=3,
-#                restore_best_weights=True)
+        save_best_only=True),
+        EarlyStopping(monitor="val_loss",
+                patience=3,
+                restore_best_weights=True)
 ]
-#model.fit(int_train_ds,
-#        validation_data=int_val_ds,
-#        epochs=20,
-#        callbacks=callbacks)
+model.fit(int_train_ds,
+        validation_data=int_val_ds,
+        epochs=20,
+        callbacks=callbacks)
 
 batch = next(iter(int_train_ds))
 model(batch[0])
