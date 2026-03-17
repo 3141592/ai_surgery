@@ -6,6 +6,22 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-16-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens: Introduction
+  - Running your model
+    - return_type = "loss"
+    - return_type = "logits"
+  - Experiment with utils.test_prompt(prompt, answr, model)
+    - This returns the next 10 predicted tokens.
+    - It does include some indication of knowledge, but is driven more by simply next token.
+  - Tokenization
+    - Exercise - how many tokens does your model guess correctly?
+  - Caching all Activations
+    - Excercie - verify activations
+
+
 ### 03-07-2026
 #### [1.2] Intro to Mech Interp
 
