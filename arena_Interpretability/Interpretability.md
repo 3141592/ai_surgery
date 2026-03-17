@@ -10,11 +10,11 @@
 #### [1.2] Intro to Mech Interp
 
 - TransformerLens: Introduction
-  - WIP Caching all Activations
-    - TBD Excercise - verify activations
+  - Caching all Activations
+    - Excercise - verify activations
       - In QK^T:
         - Each row represents the attention score of a single token for every other token
-
+  - NEXT Visualising Attention Heads
 
 ### 03-16-2026
 #### [1.2] Intro to Mech Interp

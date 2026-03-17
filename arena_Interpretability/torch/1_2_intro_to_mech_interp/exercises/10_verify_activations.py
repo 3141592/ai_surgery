@@ -58,14 +58,28 @@ print("gpt2_cache['k', 0]:", gpt2_cache["k", 0].shape)
 # Perform matrix multiplication for QK^T
 print()
 print("Perform matrix multiplication for QK^T")
-Q_h = gpt2_cache["q", 0][:, 0, :]
-K_h = gpt2_cache["k", 0][:, 0, :]
+Q_h = gpt2_cache["q", 0][:, :, :]
+K_h = gpt2_cache["k", 0][:, :, :]
+
+print()
+print("Q_h.shape: ", Q_h.shape)
+print("K_h.shape: ", K_h.shape)
+
+print()
+print("Permute Q_h and K_h to have shape (head, query position, d_head) and (head, key position, d_head) respectively")
+Q_h = Q_h.permute(1, 0, 2)
+K_h = K_h.permute(1, 0, 2)
+
+print()
+print("Q_h.shape: ", Q_h.shape)
+print("K_h.shape: ", K_h.shape)
 
 print()
 print("type(Q_h): ", type(Q_h))
-print("type(K_h.transpose): ", type(K_h.t()))
-scores = t.matmul(Q_h, K_h.t())
-print("scores: ", scores)
+print("type(K_h.transpose): ", type(K_h.transpose(-2, -1)))
+
+scores = t.matmul(Q_h, K_h.transpose(-2, -1))
+#print("scores: ", scores)
 
 print()
 print("Shape of QK^T:", scores.shape)
@@ -81,7 +95,15 @@ scaled_scores = scores/math.sqrt(d_head)
 
 print()
 print("scaled_scores.shape: ", scaled_scores.shape)
+#print("scaled_scores: ", scaled_scores)
+
+print()
+print("Apply causal mask to scaled scores")
+seq_len = gpt_tokens.shape[1]
+mask = t.tril(t.ones(seq_len, seq_len)).to(device)
+scaled_scores = scaled_scores.masked_fill(mask == 0, float("-inf"))
 print("scaled_scores: ", scaled_scores)
+
 
 print()
 print("Apply softmax to get attention pattern")
@@ -89,8 +111,17 @@ probabilities = t.softmax(scaled_scores, dim=-1)
 
 print()
 print("probabilities.shape: ", probabilities.shape)
-print("probabilities: ", probabilities)
+#print("probabilities: ", probabilities)
 
+print()
+print("probabilities[0, 0, :].sum(): ", probabilities[0, 0, :].sum())
+print("probabilities[0, :, 0].sum(): ", probabilities[0, :, 0].sum())
+
+print()
 layer0_pattern_from_q_and_k = probabilities
+print("layer0_pattern_from_cache.shape: ", layer0_pattern_from_cache.shape)
+print("layer0_pattern_from_q_and_k.shape: ", layer0_pattern_from_q_and_k.shape)
+
+print()
 t.testing.assert_close(layer0_pattern_from_cache, layer0_pattern_from_q_and_k)
 print("Tests passed!")
