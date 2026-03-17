@@ -6,6 +6,16 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-17-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens: Introduction
+  - WIP Caching all Activations
+    - TBD Excercise - verify activations
+      - In QK^T:
+        - Each row represents the attention score of a single token for every other token
+
+
 ### 03-16-2026
 #### [1.2] Intro to Mech Interp
 
@@ -18,8 +28,8 @@
     - It does include some indication of knowledge, but is driven more by simply next token.
   - Tokenization
     - Exercise - how many tokens does your model guess correctly?
-  - Caching all Activations
-    - Excercie - verify activations
+  - WIP Caching all Activations
+    - TBD Excercise - verify activations
 
 
 ### 03-07-2026
