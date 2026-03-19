@@ -6,6 +6,12 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-18-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens: Introduction
+  - WIP Visualising Attention Heads
+
 ### 03-17-2026
 #### [1.2] Intro to Mech Interp
 
