@@ -6,6 +6,14 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-19-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens: Introduction
+  - WIP Visualising Attention Heads
+    - Create images for all heads in Layer 0
+    - Heads are not static roles—they are reused and repurposed across layers.
+
 ### 03-18-2026
 #### [1.2] Intro to Mech Interp
 

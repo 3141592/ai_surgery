@@ -21,7 +21,8 @@ device = t.device("mps" if t.backends.mps.is_available() else "cuda" if t.cuda.i
 
 gpt2_small: HookedTransformer = HookedTransformer.from_pretrained("gpt2-small")
 
-gpt2_text = "Natural language processing tasks, such as question answering, machine translation, reading comprehension, and summarization, are typically approached with supervised learning on task-specific datasets."
+#gpt2_text = "Natural language processing tasks, such as question answering, machine translation, reading comprehension, and summarization, are typically approached with supervised learning on task-specific datasets."
+gpt2_text = "The capital of France is Paris."
 
 gpt_tokens = gpt2_small.to_tokens(gpt2_text)
 gpt2_logits, gpt2_cache = gpt2_small.run_with_cache(gpt_tokens, remove_batch_dim=True)
@@ -38,19 +39,29 @@ gpt2_str_tokens = gpt2_small.to_str_tokens(gpt_tokens)
 print("gpt2_str_tokens:", gpt2_str_tokens)
 
 print()
-fig, axes = plt.subplots(3, 4, figsize=(16, 10))
-axes = axes.flatten()
-for i in range(gpt2_cache.model.cfg.n_heads):
-    print(f"Layer 0 Head {i} Attention Pattern:")
-    head = attention_pattern[i].cpu()
-    ax = axes[i]
-    im = ax.imshow(head, aspect="auto")
-    fig.colorbar(im, ax=ax)
-    ax.set_xlabel("Key position")
-    ax.set_ylabel("Query position")
-    ax.set_title(f"Layer 0 Head {i} Attention Pattern")
+head_i = 0
+head = attention_pattern[head_i].cpu()
 
-#cbar_ax = fig.add_axes([0.92, 0.15, 0.02, 0.7])
-#fig.colorbar(im, cax=cbar_ax)
+tokens = gpt2_str_tokens
+
+for q in range(len(tokens)):
+    top_k = head[q].topk(3)
+    print(f"\nQuery: {tokens[q]}")
+    for idx, val in zip(top_k.indices, top_k.values):
+        print(f"  attends to: {tokens[idx]}  ({val.item():.3f})")
+
+fig, ax = plt.subplots(figsize=(10, 8))
+im = ax.imshow(head, aspect="auto")
+
+ax.set_title(f"Layer 0 Head {head_i} Attention Pattern")
+ax.set_xlabel("Key token")
+ax.set_ylabel("Query token")
+
+ax.set_xticks(range(len(tokens)))
+ax.set_yticks(range(len(tokens)))
+ax.set_xticklabels(tokens, rotation=90)
+ax.set_yticklabels(tokens)
+
+fig.colorbar(im, ax=ax)
 plt.tight_layout()
 plt.show()
