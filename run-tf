@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# Ensure repo root (this script's directory) is on Python import path
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 export PYTHONPATH="${REPO_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+export TF_CPP_MIN_LOG_LEVEL=2
 
 TARGET="${1:-}"
+if [[ -z "$TARGET" ]]; then
+  echo "Usage: $0 path/to/script.py [args...]"
+  exit 1
+fi
+
 if [[ "$TARGET" == *"/torch/"* || "$TARGET" == torch/* ]]; then
   exec "$REPO_ROOT/run-torch" "$@"
 fi
 
-source ~/venvs/tf/bin/activate
-export TF_CPP_MIN_LOG_LEVEL=2
-python "$@"
-
+exec /home/roy/venvs/tf/bin/python "$@"

@@ -1,6 +1,7 @@
 import torch as t
 from transformer_lens import HookedTransformer
 import transformer_lens.utils as utils
+from ai_shared_utilities import log_experiment
 
 device = utils.get_device()
 prompt = "Q: The capital of France is?\nA:"
@@ -46,3 +47,20 @@ def show_token_stats(model, prompt, target_str=" Paris"):
 
 show_token_stats(gpt2, prompt)
 show_token_stats(pythia, prompt)
+
+result_summary = "Comparing GPT-2 and Pythia"
+log_experiment(
+    log_path="experiments/experiment_log.jsonl",
+    script=__file__,
+    question="Does GPT-2 answer differently than Pythia?",
+    model="gpt2-small",
+    prompt_a=prompt,
+    prompt_b=prompt,
+    comparison_type="token stats",
+    metric_summary={
+        "NA",
+    },
+    result_summary=result_summary,
+    notes="Testing log_expriment function for logging experiment results.",
+    artifacts=[""],
+)

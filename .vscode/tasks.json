@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run current file with tf",
+      "type": "shell",
+      "command": "${workspaceFolder}/run-tf",
+      "args": ["${file}"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": false,
+        "showReuseMessage": false,
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run current file with torch",
+      "type": "shell",
+      "command": "${workspaceFolder}/run-torch",
+      "args": ["${file}"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": false,
+        "showReuseMessage": false
+      },
+      "problemMatcher": []
+    }
+  ]
+}

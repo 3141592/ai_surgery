@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# Ensure repo root (this script's directory) is on Python import path
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 export PYTHONPATH="${REPO_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
 
-source ~/venvs/torch/bin/activate
-python "$@"
+TARGET="${1:-}"
+if [[ -z "$TARGET" ]]; then
+  echo "Usage: $0 path/to/script.py [args...]"
+  exit 1
+fi
+
+exec /home/roy/venvs/torch/bin/python "$@"
