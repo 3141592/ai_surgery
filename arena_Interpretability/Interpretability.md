@@ -6,6 +6,23 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-26-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens: Introduction
+  - Visualising Attention Heads
+    - Create images for all heads in Layer 0
+    - Heads are not static roles—they are reused and repurposed across layers.
+  - Created attention head heatmaps for:
+    - The cat sat on the bed
+    - The dog sat on the bed
+  - There were no noticeable differences.
+  - WIP Visualizing Neuron Acrtivations
+    - Using ChatGPT changed the AGENDA code to matplotlib.
+    - Generated charts showing differences between the 'cat' and 'dog' prompts.
+    - I need to go back and understand the data pulled for the neuron activations.
+
+
 ### 03-19-2026
 #### [1.2] Intro to Mech Interp
 

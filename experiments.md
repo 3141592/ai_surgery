@@ -3,7 +3,7 @@
 ## 03/24/2026
 
 - Tested prompts for using in a small mechanical interpretability project.
-  - Decided on comparing the where in the network replacing 'cat' with 'dog' shift from bed/couch to ground/floor.
+  - experiment_01: Decided on comparing the where in the network replacing 'cat' with 'dog' shift from bed/couch to ground/floor.
 
 
 
