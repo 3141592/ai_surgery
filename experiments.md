@@ -1,11 +1,15 @@
 # Experiments
 
+## 03/28/2026
+
+- project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
+  - Got the logits and rank for 'bed' and for dog the higher ranked 'ground'.
+  - Next, calculate the deltas for the top 10 ranked tokens.
+
 ## 03/24/2026
 
 - Tested prompts for using in a small mechanical interpretability project.
   - experiment_01: Decided on comparing the where in the network replacing 'cat' with 'dog' shift from bed/couch to ground/floor.
-
-
 
 
 # Experiment Logging
