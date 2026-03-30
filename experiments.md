@@ -1,5 +1,13 @@
 # Experiments
 
+## 03/xx/2026
+
+- project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
+  - Next, calculate the deltas for the top 10 ranked tokens.
+  - Pick a single token (like ' bed') and trace:
+    - which heads increased its logit
+    - which FFN neurons contributed
+
 ## 03/28/2026
 
 - project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
