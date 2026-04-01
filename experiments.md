@@ -1,10 +1,26 @@
 # Experiments
 
-## 03/xx/2026
+## 04/01/2026
 
 - project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
   - Next, calculate the deltas for the top 10 ranked tokens.
-  - Pick a single token (like ' bed') and trace:
+  - Investigating Neuron Activations
+    - WIP Which neurons fire more for ‘bed’ than for other tokens?”
+      - Instead of max per layer, compute: bed_activations - average_activations
+      - Which neurons increase specifically for "bed"?
+  - AFTER Pick a single token (like ' bed') and trace:
+    - which heads increased its logit
+    - which FFN neurons contributed
+
+## 03/31/2026
+
+- project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
+  - Next, calculate the deltas for the top 10 ranked tokens.
+  - Investigating Neuron Activations
+    - NEXT Which neurons fire more for ‘bed’ than for other tokens?”
+      - Instead of max per layer, compute: bed_activations - average_activations
+      - Which neurons increase specifically for "bed"?
+  - AFTER Pick a single token (like ' bed') and trace:
     - which heads increased its logit
     - which FFN neurons contributed
 
