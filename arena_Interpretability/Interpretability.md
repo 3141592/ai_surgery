@@ -10,10 +10,11 @@
 #### [1.2] Intro to Mech Interp
 
 - TransformerLens: Introduction
-  - WIP Visualizing Neuron Activations
+  - Visualizing Neuron Activations
     - I need to go back and understand the data pulled for the neuron activations.
       - neuron_activations_for_dog.shape = [8, 12, 3072] == [tokens, layers, neurons]
       - found activations for the 'bed' token in each layer
+  - Investigating Neuron Activations
     - NEXT Which neurons fire more for ‘bed’ than for other tokens?”
       - Instead of max per layer, compute: bed_activations - average_activations
       - Which neurons increase specifically for "bed"?
