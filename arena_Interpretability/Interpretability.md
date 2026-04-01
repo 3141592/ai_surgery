@@ -6,6 +6,15 @@
 
 ## Chapter 0: Fundamentals
 
+### 04-01-2026
+#### [1.2] Intro to Mech Interp
+
+- Finding induction heads
+  - Learning Objectives
+    - Understand what induction heads are, and the algorithm they are implementing
+    - Inspect activation patterns to identify basic attention head patterns, and write your own functions to detect attention heads for you
+    - Identify induction heads by looking at the attention patterns produced from a repeating random sequence
+
 ### 03-31-2026
 #### [1.2] Intro to Mech Interp
 
@@ -14,11 +23,7 @@
     - I need to go back and understand the data pulled for the neuron activations.
       - neuron_activations_for_dog.shape = [8, 12, 3072] == [tokens, layers, neurons]
       - found activations for the 'bed' token in each layer
-  - Investigating Neuron Activations
-    - NEXT Which neurons fire more for ‘bed’ than for other tokens?”
-      - Instead of max per layer, compute: bed_activations - average_activations
-      - Which neurons increase specifically for "bed"?
-      - 
+  - NEXT Finding induction heads
 
 
 ### 03-26-2026
