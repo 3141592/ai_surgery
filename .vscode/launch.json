@@ -8,7 +8,8 @@
       "program": "${file}",
       "console": "integratedTerminal",
       "python": "/home/roy/venvs/tf/bin/python",
-      "justMyCode": true
+      "justMyCode": true,
+      "cwd": "${fileDirname}"
     },
     {
       "name": "Debug current file (torch)",
@@ -17,7 +18,8 @@
       "program": "${file}",
       "console": "integratedTerminal",
       "python": "/home/roy/venvs/torch/bin/python",
-      "justMyCode": true
+      "justMyCode": true,
+      "cwd": "${fileDirname}"
     }
   ]
 }
