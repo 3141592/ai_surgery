@@ -60,6 +60,9 @@ neuron_activations_for_dog = t.stack([
     gpt2_cache_dog["post", layer] for layer in range(gpt2_small.cfg.n_layers)
 ], dim=1)
 
+print()
+print("neuron_activations_for_dog.shape: ", neuron_activations_for_dog.shape)
+
 import matplotlib.pyplot as plt
 import torch
 

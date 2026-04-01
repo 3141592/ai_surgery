@@ -6,6 +6,20 @@
 
 ## Chapter 0: Fundamentals
 
+### 03-31-2026
+#### [1.2] Intro to Mech Interp
+
+- TransformerLens: Introduction
+  - WIP Visualizing Neuron Activations
+    - I need to go back and understand the data pulled for the neuron activations.
+      - neuron_activations_for_dog.shape = [8, 12, 3072] == [tokens, layers, neurons]
+      - found activations for the 'bed' token in each layer
+    - NEXT Which neurons fire more for ‘bed’ than for other tokens?”
+      - Instead of max per layer, compute: bed_activations - average_activations
+      - Which neurons increase specifically for "bed"?
+      - 
+
+
 ### 03-26-2026
 #### [1.2] Intro to Mech Interp
 
@@ -17,7 +31,7 @@
     - The cat sat on the bed
     - The dog sat on the bed
   - There were no noticeable differences.
-  - WIP Visualizing Neuron Acrtivations
+  - WIP Visualizing Neuron Activations
     - Using ChatGPT changed the AGENDA code to matplotlib.
     - Generated charts showing differences between the 'cat' and 'dog' prompts.
     - I need to go back and understand the data pulled for the neuron activations.
