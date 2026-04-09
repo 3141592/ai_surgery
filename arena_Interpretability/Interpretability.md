@@ -14,6 +14,7 @@
     - Understand what induction heads are, and the algorithm they are implementing
     - Inspect activation patterns to identify basic attention head patterns, and write your own functions to detect attention heads for you
     - Identify induction heads by looking at the attention patterns produced from a repeating random sequence
+  - Exercise - write your own detectors
 
 ### 03-31-2026
 #### [1.2] Intro to Mech Interp

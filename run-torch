@@ -10,4 +10,4 @@ if [[ -z "$TARGET" ]]; then
   exit 1
 fi
 
-exec /home/roy/venvs/torch/bin/python "$@"
+exec python3 "$@"

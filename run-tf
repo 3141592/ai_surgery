@@ -11,8 +11,8 @@ if [[ -z "$TARGET" ]]; then
   exit 1
 fi
 
-if [[ "$TARGET" == *"/torch/"* || "$TARGET" == torch/* ]]; then
+if [[ "$TARGET" == */torch/* || "$TARGET" == torch/* ]]; then
   exec "$REPO_ROOT/run-torch" "$@"
 fi
 
-exec /home/roy/venvs/tf/bin/python "$@"
+exec python3 "$@"

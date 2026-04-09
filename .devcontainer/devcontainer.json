@@ -1,0 +1,21 @@
+{
+  "name": "ai_surgery",
+  "image": "dl-base:latest",
+  "workspaceFolder": "/workspaces/ai_surgery",
+  "runArgs": [
+    "--gpus=all"
+  ],
+  "mounts": [
+    "source=/home/roy/src/ai_shared_utilities,target=/workspaces/ai_shared_utilities,type=bind",
+    "source=/home/roy/src/data,target=/workspaces/data,type=bind"
+  ],
+  "postCreateCommand": "pip install -e /workspaces/ai_shared_utilities",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}

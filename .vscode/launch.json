@@ -2,22 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug current file (tf)",
+      "name": "Debug current file",
       "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
-      "python": "/home/roy/venvs/tf/bin/python",
-      "justMyCode": true,
-      "cwd": "${fileDirname}"
-    },
-    {
-      "name": "Debug current file (torch)",
-      "type": "debugpy",
-      "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal",
-      "python": "/home/roy/venvs/torch/bin/python",
       "justMyCode": true,
       "cwd": "${fileDirname}"
     }
