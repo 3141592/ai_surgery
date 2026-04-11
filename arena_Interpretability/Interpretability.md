@@ -13,6 +13,8 @@
   - What are induction heads?
   - DONE Checking for the induction capability
     - DONE Exercise - plot per-token loss on repeadted seqeunce
+    - Understanding the flow of the execrcise and using model.run_with_cache(rep_tokens)
+    - After learning the random rep_tokens sequence as the first half of a sequence, when the same sequence is encountered again in training the loss is much lower.
   - NEXT Looking for Induction Attention Patterns
 
 ### 04-09-2026
