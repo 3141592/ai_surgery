@@ -6,6 +6,15 @@
 
 ## Chapter 0: Fundamentals
 
+### 04-10-2026
+#### [1.2] Intro to Mech Interp
+
+- Finding induction heads
+  - What are induction heads?
+  - DONE Checking for the induction capability
+    - DONE Exercise - plot per-token loss on repeadted seqeunce
+  - NEXT Looking for Induction Attention Patterns
+
 ### 04-09-2026
 #### [1.2] Intro to Mech Interp
 
