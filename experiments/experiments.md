@@ -1,5 +1,12 @@
 # Experiments
 
+## 04/12/2026
+
+- project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
+  - Blindly see what I can discover about 'bed' vs 'ground' for dogs.
+  - Computed 'bed' vs all other tokens and 'ground' vs all other, but need to compare 'bed' vs 'ground'.
+  - NEXT Create script to compare neuron activations for 'bed' vs 'ground'.
+
 ## 04/01/2026
 
 - project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
