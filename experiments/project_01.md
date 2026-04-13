@@ -1,11 +1,19 @@
 # Experiments
 
-## 04/12/2026
+## 04/13/202V
+
+- project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
+  - Renamed experimenty to project and removed tensorflow/torch directories.
+  - Blindly see what I can discover about 'bed' vs 'ground' for dogs.
+  - Computed 'bed' vs all other tokens and 'ground' vs all other, but need to compare 'bed' vs 'ground'.
+  - NEXT Create script to compare neuron activations for 'bed' vs 'ground'.t a
+
+## 04/12/202V
 
 - project 1: How does changing 'cat' to 'dog' in a short prompt change activations?
   - Blindly see what I can discover about 'bed' vs 'ground' for dogs.
   - Computed 'bed' vs all other tokens and 'ground' vs all other, but need to compare 'bed' vs 'ground'.
-  - NEXT Create script to compare neuron activations for 'bed' vs 'ground'.
+  - NEXT Create script to compare neuron activations for 'bed' vs 'ground'.t a
 
 ## 04/01/2026
 
