@@ -1,5 +1,13 @@
 # Project 2
 
+## 04-14-2026
+- Gained better understanding of the logits after a simple training.
+- NEXT Perform a pilot experiment to work out the methodology.
+  - Create a 2-layer Transformer model.
+  - Created pilot mapping [0 1 2 3 4] to [1 2 3 4 5]
+  - NEXT Train it on the data: "AAA BBB".
+
+
 ## 04-13-2026
 
 - Start with defining c clear objective of the project.

@@ -1,3 +1,10 @@
+"""
+Tiny Transformer Model
+
+This code defines a tiny transformer model with a single transformer block, and trains it on a simple sequence prediction task. 
+The model is trained to predict the next token in a sequence of token IDs. The code also prints the predicted token IDs before and after training, 
+as well as the difference in logits to show how the model's predictions have changed.
+"""
 import torch
 
 class TransformerBlock(torch.nn.Module):

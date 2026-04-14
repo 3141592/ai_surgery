@@ -1,3 +1,12 @@
+"""
+Tiny Transformer Model
+
+This code defines a tiny transformer model with a single transformer block, and trains it on a simple sequence prediction task. 
+The model is trained to predict the next token in a sequence of token IDs. 
+The code also prints the predicted token IDs before and after training, 
+as well as the difference in logits to show how the model's predictions have changed.
+
+"""
 import torch
 
 class TransformerBlock(torch.nn.Module):
@@ -84,3 +93,7 @@ with torch.no_grad():
 logit_diff = logits_after - logits_before
 print("logit_diff.shape:", logit_diff.shape)
 print("logit_diff[0, 0]:", logit_diff[0, 0])
+print("logit_diff:\n", logit_diff)
+print("logits_after:\n", logits_after)
+probabilities_after = torch.softmax(logits_after, dim=-1)
+print("probabilities_after:\n", probabilities_after)

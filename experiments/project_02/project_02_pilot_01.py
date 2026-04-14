@@ -1,3 +1,8 @@
+"""
+Tiny Transformer Model
+This code defines a tiny transformer model with a single transformer block, and trains it on a simple sequence prediction task. i
+The model is trained to predict the next token in a sequence of token IDs.
+"""
 import torch
 
 # Create the initial dataset

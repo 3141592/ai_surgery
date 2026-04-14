@@ -1,10 +1,13 @@
 """
 Tiny Transformer Model
 
+NOTE: Trying with a too large vocab_size.
+
 This code defines a tiny transformer model with a single transformer block, and trains it on a simple sequence prediction task. 
 The model is trained to predict the next token in a sequence of token IDs. 
 The code also prints the predicted token IDs before and after training, 
 as well as the difference in logits to show how the model's predictions have changed.
+
 """
 import torch
 
@@ -47,7 +50,7 @@ class TinyTransformerModel(torch.nn.Module):
         logits = self.output_layer(x)      # [batch, seq, vocab]
         return logits
 
-vocab_size = 6
+vocab_size = 10
 embedding_dim = 4
 num_heads = 1
 model = TinyTransformerModel(vocab_size, embedding_dim, num_heads=num_heads)
@@ -56,33 +59,40 @@ input_ids = torch.tensor([[0, 1, 2, 3, 4]])
 target_ids = torch.tensor([[1, 2, 3, 4, 5]])
 
 logits = model(input_ids)
-
-print("input shape: ", input_ids.shape)
-print("target shape:", target_ids.shape)
-print("logits shape: ", logits.shape)
-
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 loss_fn = torch.nn.CrossEntropyLoss()
 
-loss = loss_fn(
-    logits.view(-1, vocab_size),   # [1, 5, 6] -> [5, 6]
-    target_ids.view(-1)            # [1, 5] -> [5]
-)
-print("logits:", logits)
-print("loss:", loss.item())
+for step in range(10):
+    optimizer.zero_grad()
+    logits = model(input_ids)
+    loss = loss_fn(logits.view(-1, vocab_size), target_ids.view(-1))
+    loss.backward()
+    optimizer.step()
 
-optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+    if step % 10 == 0:
+        print(f"step {step}: loss = {loss.item():.4f}")
 
-# before update
-optimizer.zero_grad()
-logits = model(input_ids)
-loss = loss_fn(logits.view(-1, vocab_size), target_ids.view(-1))
-print("loss before update:", loss.item())
-
-loss.backward()
-optimizer.step()
-
-# after update
 with torch.no_grad():
-    logits_after = model(input_ids)
-    loss_after = loss_fn(logits_after.view(-1, vocab_size), target_ids.view(-1))
-    print("loss after update:", loss_after.item())
+    logits_before = model(input_ids).detach().clone()
+    predicted_ids = logits_before.argmax(dim=-1)
+    print("Predicted token IDs before training:", predicted_ids)
+
+for step in range(40):
+    optimizer.zero_grad()
+    logits = model(input_ids)
+    loss = loss_fn(logits.view(-1, vocab_size), target_ids.view(-1))
+    loss.backward()
+    optimizer.step()
+
+    if step % 10 == 0:
+        print(f"step {step}: loss = {loss.item():.4f}")
+
+with torch.no_grad():
+    logits_after = model(input_ids).detach().clone()
+    predicted_ids = logits_after.argmax(dim=-1)
+    print("Predicted token IDs after training:", predicted_ids)
+
+logit_diff = logits_after - logits_before
+print("logit_diff.shape:", logit_diff.shape)
+print("logit_diff[0, 0]:", logit_diff[0, 0])
+print("logit_diff[0, 0]:", logit_diff[0, 4])
