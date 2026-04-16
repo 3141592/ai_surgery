@@ -88,25 +88,25 @@ rep_cache.remove_batch_dim()
 rep_str = model.to_str_tokens(rep_tokens)
 
 print()
-attention_pattern = rep_cache["pattern", 0]
+layer = 1
+attention_pattern = rep_cache["pattern", layer]
 print("attention_pattern shape:", attention_pattern.shape)
 
 print()
 fig, axes = plt.subplots(3, 4, figsize=(16, 10))
 axes = axes.flatten()
 for i in range(model.cfg.n_heads):
-    print(f"Layer 0 Head {i} Attention Pattern:")
+    print(f"Layer {layer} Head {i} Attention Pattern:")
     head = attention_pattern[i].cpu()
     ax = axes[i]
     im = ax.imshow(head, aspect="auto")
     fig.colorbar(im, ax=ax)
     ax.set_xlabel("Key position")
     ax.set_ylabel("Query position")
-    ax.set_title(f"Layer 0 Head {i} Attention Pattern")
+    ax.set_title(f"Layer {layer} Head {i} Attention Pattern")
 
 plt.tight_layout()
 plt.show()
 script_base = os.path.splitext(os.path.basename(__file__))[0]
-plt.savefig(f"../../images/{script_base}.png", dpi=150, bbox_inches="tight")
-print(f"Saved plot to ../../images/{script_base}.png")
-print(model)
+plt.savefig(f"../../images/{script_base}_layer_{layer}.png", dpi=150, bbox_inches="tight")
+print(f"Saved plot to ../../images/{script_base}_layer_{layer}.png")
