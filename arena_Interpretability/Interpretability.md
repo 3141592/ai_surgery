@@ -6,6 +6,13 @@
 
 ## Chapter 0: Fundamentals
 
+### 04-15-2026
+#### [1.2] Intro to Mech Interp
+
+- Finding induction heads
+  - What are induction heads?
+  - NEXT Looking for Induction Attention Patterns
+
 ### 04-10-2026
 #### [1.2] Intro to Mech Interp
 
